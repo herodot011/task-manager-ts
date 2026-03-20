@@ -5,13 +5,14 @@ GET http://localhost:3000/tasks?page=1&limit=5
 GET http://localhost:3000/tasks/3
 
 ### 
+###
 POST http://localhost:3000/tasks
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoidGVzdDNAbWFpbC5ydSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzc0MDE1OTIzLCJleHAiOjE3NzQ2MjA3MjN9.kUxxaq2G_PE5T7R-N7TWcAMqj8wpHOMTUbYh4x08rrk
 
 {
-    "title": "Новая задача"
+    "title": "Первая TS задача"
 }
-
 ###
 PATCH http://localhost:3000/tasks/3
 Content-Type: application/json
@@ -23,3 +24,22 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/tasks/3
 Content-Type: application/json
+
+###
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "name": "Тест4",
+    "email": "test4@mail.ru",
+    "password": "qwerty123"
+}
+
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "test3@mail.ru",
+    "password": "qwerty123"
+}
