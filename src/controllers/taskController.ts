@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as taskService from '../services/taskService';
 import catchAsync from '../utils/catchAsync';
+import { validateTask } from '../validators/taskValidator';
 
 export const getAllTasks = catchAsync(async(req: Request, res: Response) => {
     const { status, page, limit } = req.query;
@@ -20,6 +21,7 @@ export const findById = catchAsync(async(req: Request, res: Response) => {
 })
 
 export const createTask = catchAsync(async(req: Request, res: Response) => {
+    validateTask(req.body);
     const task = await taskService.create({
     ...req.body,
     user_id: (req as any).user?.id
