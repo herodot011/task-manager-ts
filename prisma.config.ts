@@ -10,5 +10,6 @@ export default defineConfig({
   },
   datasource: {
     url: "postgresql://postgres:postgres@localhost:5432/task_manager",
+    shadowDatabaseUrl: "postgresql://postgres:postgres@localhost:5432/task_manager_shadow",
   },
 });
