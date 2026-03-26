@@ -15,7 +15,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoidGVzdDVAbWFpbC5ydSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzc0MTA0MTY3LCJleHAiOjE3NzQ3MDg5Njd9.iGGrAO3b7WXxsNONepqH9T1p3zKWFGpgPIG9_chbnBg
 
 {
-    "title": "Задача через Prisma"
+    "title": ""
 }
 
 ###
