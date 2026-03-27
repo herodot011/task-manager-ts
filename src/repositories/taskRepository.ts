@@ -1,14 +1,15 @@
 // import pool from '../config/db';
 import prisma from '../config/prisma'
-import { CreateTaskDTO } from '../types';
+import { Task, CreateTaskDTO } from '../types';
 
 // export const findAll = async (): Promise<Task[]> => {
 //     const results = await pool.query('SELECT * FROM tasks');
 //     return results.rows;
 // }
 
-export const findAll = async () => {
-    return await prisma.tasks.findMany();
+export const findAll = async (): Promise<Task[]>  => {
+    const tasks = await prisma.tasks.findMany();
+    return tasks as Task[];
 }
 
 
@@ -21,10 +22,9 @@ export const findAll = async () => {
 // }
 
 
-export const findById = async (id: number) => {
-    return await prisma.tasks.findUnique({
-        where: { id }
-    });
+export const findById = async (id: number): Promise<Task | null> => {
+    const task = await prisma.tasks.findUnique({ where: { id } });
+    return task as Task | null;
 };
 
 // export const create = async (data: CreateTaskDTO): Promise<Task> => {
@@ -38,14 +38,15 @@ export const findById = async (id: number) => {
 //     return result.rows[0];
 // }
 
-export const create = async (data: CreateTaskDTO) => {
-    return await prisma.tasks.create({
+export const create = async (data: CreateTaskDTO): Promise<Task> => {
+    const task = await prisma.tasks.create({
         data: {
             title: data.title,
             status: data.status || 'pending',
             user_id: data.user_id || null
         }
     });
+    return task as Task;
 };
 
 // export const remove = async (id: number): Promise<number> => {
@@ -56,7 +57,7 @@ export const create = async (data: CreateTaskDTO) => {
 //     return result.rowCount?? 0;
 // }
 
-export const remove = async (id: number) => {
+export const remove = async (id: number): Promise<number> => {
     const deleted = await prisma.tasks.delete({
         where: { id }
     });
@@ -85,9 +86,10 @@ export const remove = async (id: number) => {
 //     return result.rows[0];
 // }
 
-export const update = async (id: number, data: any) => {
-   return await prisma.tasks.update({
-    where: { id },
-    data
+export const update = async (id: number, data: any): Promise<Task> => {
+   const task = await prisma.tasks.update({
+        where: { id },
+        data
    });
+   return task as Task;
 }
