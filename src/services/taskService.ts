@@ -8,8 +8,15 @@ interface GetAllParams {
     limit?: number;
 }
 
+interface PaginatedResult {
+    total: number;
+    page: number;
+    limit: number;
+    data: Task[];
+}
 
-export const getAll = async({ status, page = 1, limit = 10 }: GetAllParams): Promise<object> => {
+
+export const getAll = async({ status, page = 1, limit = 10 }: GetAllParams): Promise<PaginatedResult> => {
     let tasks = await taskRepository.findAll();
 
     if(status) {
