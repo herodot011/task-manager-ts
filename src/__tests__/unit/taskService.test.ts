@@ -90,4 +90,40 @@ describe('TaskService', () => {
             });
         });
     });
-})
+
+    describe('create', () => {
+
+        it('should create and return new task', async () => {
+            const createDto = { title: 'New task', status: 'pending' as const };
+            mockRepository.create.mockResolvedValue({ ...mockTask, ...createDto });
+
+            
+            const result = await taskService.create(createDto);
+
+            
+            expect(mockRepository.create).toHaveBeenCalledWith(createDto);
+            expect(result.title).toBe('New task');
+        });
+    });
+
+    describe('remove', () => {
+
+        it('should delete task and return 1', async () => {
+            mockRepository.remove.mockResolvedValue(1);
+            
+            const result = await taskService.remove(1);
+
+            expect(result).toBe(1);
+            expect(mockRepository.remove).toHaveBeenCalledWith(1);
+        });
+
+        it('should throw AppError 404 when task to delete not found', async () => {
+            mockRepository.remove.mockResolvedValue(0);
+
+            await expect(taskService.remove(999)).rejects.toMatchObject({
+                statusCode: 404,
+                message: 'Task not found',
+            });
+        });
+    });
+});
