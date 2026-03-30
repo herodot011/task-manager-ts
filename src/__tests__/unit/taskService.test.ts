@@ -126,4 +126,30 @@ describe('TaskService', () => {
             });
         });
     });
+
+    describe('update', () => {
+
+        it('should update and return task', async () => {
+            const updated = { ...mockTask, title: 'Updated title' };
+            mockRepository.findById.mockResolvedValue(mockTask);
+            mockRepository.update.mockResolvedValue(updated);
+
+            const result = await taskService.update(1, { title: 'Updated title' });
+
+            expect(result.title).toBe('Updated title');
+            expect(mockRepository.findById).toHaveBeenCalledWith(1);
+            expect(mockRepository.update).toHaveBeenCalledWith(1, { title: 'Updated title' });
+        });
+
+        it('should throw AppError 404 when updating non-existent task', async () => {
+            mockRepository.findById.mockResolvedValue(null);
+
+            await expect(taskService.update(999, { title: 'x' })).rejects.toMatchObject({
+                statusCode: 404,
+                message: 'Task not found',
+            });
+
+            expect(mockRepository.update).not.toHaveBeenCalled();
+        });
+    });
 });
